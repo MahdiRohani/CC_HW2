@@ -1,0 +1,31 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis
+      - API_KEY=jHig4Qhb20449rpquO9IrA==4BodWrg6EZSyg75O
+      - CACHE_EXPIRY=300
+      - PORT=8000
+    depends_on:
+      - redis
+    networks:
+      - app_network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app_network
+
+networks:
+  app_network:
+
+volumes:
+  redis_data:
+
